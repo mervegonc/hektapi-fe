@@ -1,0 +1,75 @@
+/* Genel arka plan */
+.authContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f1e5;
+  }
+  
+  /* Beyaz panel */
+  .authPaper {
+    width: 400px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Form */
+  .authForm {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Başlık */
+  .authTitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #3e2712;
+    margin-bottom: 20px;
+  }
+  
+  /* Input alanları */
+  .inputField {
+    margin-bottom: 15px !important;
+  }
+  
+  /* Gönderme butonu */
+  .submitButton {
+    background-color: #3e2712 !important;
+    color: white !important;
+    font-weight: bold;
+    margin-top: 15px;
+  }
+  
+  /* Hata mesajı */
+  .errorMessage {
+    color: #e74c3c;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  /* Başarılı mesaj */
+  .successMessage {
+    color: #27ae60;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  /* Sayfa değiştirme butonları */
+  .authSwitchButton,
+  .forgotPasswordButton {
+    color: #3e2712 !important;
+    font-weight: bold;
+    text-transform: none;
+  }
+  
+  /* Geri dön butonu */
+  .backButton {
+    color: #3e2712 !important;
+    font-weight: bold;
+    text-transform: none;
+  }
+  

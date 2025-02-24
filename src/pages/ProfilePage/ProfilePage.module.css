@@ -1,0 +1,60 @@
+.profileContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+
+.profileCard {
+  width: 600px;
+  padding: 20px;
+  text-align: center;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  margin-bottom: 15px;
+}
+
+.username {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.email {
+  font-size: 16px;
+  color: gray;
+  margin-bottom: 20px;
+}
+
+.bio {
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+/* Form Alanı */
+.formContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* İki sütunlu yapı */
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.formContainer input {
+  width: 100%;
+}
+
+/* Buton Alanı */
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}

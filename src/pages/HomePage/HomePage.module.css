@@ -1,0 +1,125 @@
+.content{
+   background-color:#e1c79b ;
+  
+}
+
+.content h2 {
+  font-size: 50px;
+  font-weight: bold;
+  color: #783702 !important; /* TURUNCU ARTIK ZORUNLU */
+  text-align: center;
+
+}
+
+
+
+.content p {
+  font-family: "Trick-GOP1a", sans-serif;
+  font-size: 18px;
+  color: #783702;
+  text-align: left;
+}
+
+
+/* Özel Sipariş ve Doğaya Saygılı başlıkları için */
+.content strong {
+  color: #783702; /* Yeşil tonu */
+  font-size: 20px;
+}
+
+
+
+
+
+  
+
+  /* Navbar */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #8B5A2B;
+    color: white;
+  }
+
+  
+
+  
+  .leftMenu a, .rightMenu a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .searchBar {
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .loginButton {
+    background-color: white;
+    color: #8B5A2B;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  /* Hero Section */
+  .hero {
+    position: relative;
+    text-align: center;
+    color: white;
+  }
+  
+  .heroImage {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    filter: brightness(70%);
+  }
+  
+  .heroContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  .ctaButton {
+    background-color: #FFD700;
+    color: #8B5A2B;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 15px;
+    display: inline-block;
+  }
+  
+  /* Content Section */
+  .content {
+    padding: 50px 15%;
+  }
+  
+  .content h2 {
+    color: #8B5A2B;
+  }
+  
+  /* Footer */
+  .footer {
+    background-color: #8B5A2B;
+    color: white;
+    padding: 15px;
+    text-align: center;
+  }
+  
