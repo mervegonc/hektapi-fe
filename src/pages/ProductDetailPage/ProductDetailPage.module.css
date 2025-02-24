@@ -122,4 +122,18 @@
   .attributesTable th {
     background: #f5f5f5;
   }
+  .deleteButton {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+  }
+  
+  .deleteButton:hover {
+    background-color: #c9302c;
+  }
   
