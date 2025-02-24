@@ -12,7 +12,7 @@ const ProductDetailPage = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false); // 🔥 Admin kontrolü için state
+  const [isAdmin, setIsAdmin] = useState(false);
   const [updatedProduct, setUpdatedProduct] = useState({
     name: "",
     information: "",
@@ -20,33 +20,30 @@ const ProductDetailPage = () => {
     categoryId: "",
     attributes: [],
   });
+
   useEffect(() => {
-    // 🔥 Admin olup olmadığını kontrol et
-    const userRole = localStorage.getItem("role"); // 🛠 Backend'den dönen ROLE_ADMIN'ı kontrol et
+    const userRole = localStorage.getItem("role");
     setIsAdmin(userRole === "ROLE_ADMIN");
 
     AxiosInstance.get(`/products/${id}`)
-        .then((response) => {
-            setProduct(response.data);
-            setUpdatedProduct({
-                name: response.data.name,
-                information: response.data.information,
-                code: response.data.code,
-                categoryId: response.data.categoryId,
-                attributes: response.data.attributes.map(attr => ({
-                    id: attr.id,  // ✅ ARTIK ID’Yİ DE EKLİYORUZ!
-                    key: attr.key,
-                    value: attr.value
-                }))
-            });
-        })
-        .catch(() => {
-            setErrorMessage("Ürün detayları yüklenirken bir hata oluştu!");
+      .then((response) => {
+        setProduct(response.data);
+        setUpdatedProduct({
+          name: response.data.name,
+          information: response.data.information,
+          code: response.data.code,
+          categoryId: response.data.categoryId,
+          attributes: response.data.attributes.map(attr => ({
+            id: attr.id,  
+            key: attr.key,
+            value: attr.value
+          }))
         });
-}, [id, navigate]);
-
-
-
+      })
+      .catch(() => {
+        setErrorMessage("Ürün detayları yüklenirken bir hata oluştu!");
+      });
+  }, [id, navigate]);
 
   if (errorMessage) return <p>{errorMessage}</p>;
   if (!product) return <p>Yükleniyor...</p>;
@@ -61,7 +58,6 @@ const ProductDetailPage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
   };
 
-  // 🔥 Form değişikliklerini yönet
   const handleInputChange = (e) => {
     setUpdatedProduct({ ...updatedProduct, [e.target.name]: e.target.value });
   };
@@ -72,7 +68,6 @@ const ProductDetailPage = () => {
     setUpdatedProduct({ ...updatedProduct, attributes: newAttributes });
   };
 
-  // 🔥 Güncelleme isteği gönderme
   const handleUpdateProduct = () => {
     AxiosInstance.put(`/products/${id}`, updatedProduct)
       .then((response) => {
@@ -85,13 +80,43 @@ const ProductDetailPage = () => {
       });
   };
 
+  // 🆕 **Yeni Özellik Ekleme Fonksiyonu**
+  const handleAddNewAttribute = () => {
+    const newAttribute = {
+      id: null, // Yeni eklenenler için ID olmayacak
+      key: "",
+      value: ""
+    };
+    setUpdatedProduct({
+      ...updatedProduct,
+      attributes: [...updatedProduct.attributes, newAttribute]
+    });
+  };
+
+  // 🆕 **Yeni Özellik Backend'e Kaydetme**
+  const handleSaveNewAttributes = () => {
+    const newAttributes = updatedProduct.attributes.filter(attr => attr.id === null);
+    newAttributes.forEach(attr => {
+      AxiosInstance.post("/products/add-attribute", {
+        productId: id,
+        key: attr.key,
+        value: attr.value
+      })
+        .then(() => {
+          alert(`"${attr.key}" eklendi!`);
+        })
+        .catch(() => {
+          alert(`"${attr.key}" eklenirken hata oluştu.`);
+        });
+    });
+  };
+
   return (
     <div>
       <Navbar />
       <div className={styles.productDetail}>
         <div className={styles.productContainer}>
           
-          {/* 🔥 Sol tarafta resim bölümü */}
           <div className={styles.imageSection}>
             {images.length > 0 ? (
               <div className={styles.imageWrapper}>
@@ -116,7 +141,6 @@ const ProductDetailPage = () => {
             )}
           </div>
 
-          {/* 🔥 Sağ tarafta ürün bilgileri */}
           <div className={styles.infoSection}>
             {isEditing ? (
               <>
@@ -140,7 +164,6 @@ const ProductDetailPage = () => {
           </div>
         </div>
 
-        {/* 🔥 Özellikler Tablosu */}
         <div className={styles.detailsSection}>
           {product.attributes.length > 0 ? (
             <table className={styles.attributesTable}>
@@ -185,7 +208,20 @@ const ProductDetailPage = () => {
           )}
         </div>
 
-        {/* 🔥 Butonlar (Sadece Admin İçin) */}
+        {/* 🆕 "Yeni Özellik Ekle" Butonu */}
+        {isAdmin && isEditing && (
+          <div className={styles.buttonContainer}>
+            <button onClick={handleAddNewAttribute} className={styles.addButton}>Yeni Özellik Ekle</button>
+          </div>
+        )}
+
+        {/* 🆕 "Yeni Özellikleri Kaydet" Butonu */}
+        {isAdmin && isEditing && (
+          <div className={styles.buttonContainer}>
+            <button onClick={handleSaveNewAttributes} className={styles.saveButton}>Yeni Özellikleri Kaydet</button>
+          </div>
+        )}
+
         {isAdmin && (
           <div className={styles.buttonContainer}>
             {isEditing ? (
