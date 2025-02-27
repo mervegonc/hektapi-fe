@@ -1,0 +1,137 @@
+/* Panelin ekranın ortasında olmasını sağlar */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Panelin ortada durmasını sağlar */
+.editPanel {
+    width: 50%;
+    max-width: 800px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Tablo genel stilleri */
+.attributesTable {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+/* Başlık (th) ve hücre (td) stilleri */
+.attributesTable th,
+.attributesTable td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    vertical-align: top;
+}
+
+/* Key ve Value sütunları genişliği */
+.attributesTable th:first-child,
+.attributesTable td:first-child {
+    width: 30%;
+}
+
+.attributesTable th:last-child,
+.attributesTable td:last-child {
+    width: 70%;
+}
+
+/* Input ve Textarea stilleri */
+.attributesTable input,
+.attributesTable textarea {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #ccc;
+    background: white;
+    outline: none;
+    font-size: 14px;
+}
+
+/* Textarea'nın içeriğe göre genişlemesi */
+.attributesTable textarea {
+    resize: vertical;
+    overflow-y: auto;
+    min-height: 30px;
+    max-height: 200px;
+}
+
+/* Inputlar üzerine gelince */
+.attributesTable input:focus,
+.attributesTable textarea:focus {
+    border: 1px solid #007bff;
+}
+
+/* Butonlar */
+.buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* Kaydet Butonu */
+.saveButton {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.saveButton:hover {
+    background-color: #218838;
+}
+
+/* Yeni Özellik Ekle Butonu */
+.addButton {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.addButton:hover {
+    background-color: #0056b3;
+}
+
+/* Yeni Özellik Ekle butonu kırmızı olduğunda */
+.redButton {
+    background-color: #dc3545 !important;
+}
+
+.redButton:hover {
+    background-color: #c82333 !important;
+}
+
+/* İptal Butonu */
+.cancelButton {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.cancelButton:hover {
+    background-color: #c82333;
+}

@@ -1,9 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AxiosInstance from "../../axios/AxiosInstance";
-import styles from "./EditPanel.module.css";
+import styles from "./EditAttributesPanel.module.css";
 
 const EditAttributesPanel = ({ product, closePanel }) => {
   const [attributes, setAttributes] = useState([...product.attributes]);
+  const panelRef = useRef(null);
+
+  // Panel dışına tıklanınca kapatma
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (panelRef.current && !panelRef.current.contains(event.target)) {
+        closePanel();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [closePanel]);
 
   const handleAttributeChange = (index, field, value) => {
     const newAttributes = [...attributes];
@@ -61,41 +76,46 @@ const EditAttributesPanel = ({ product, closePanel }) => {
   };
 
   return (
-    <div className={styles.editPanel}>
-      <h2>Özellikleri Düzenle</h2>
-      <table className={styles.attributesTable}>
-        <thead>
-          <tr>
-            <th>Özellik</th>
-            <th>Değer</th>
-          </tr>
-        </thead>
-        <tbody>
-          {attributes.map((attr, index) => (
-            <tr key={index}>
-              <td>
-                <input
-                  type="text"
-                  value={attr.key}
-                  onChange={(e) => handleAttributeChange(index, "key", e.target.value)}
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  value={attr.value}
-                  onChange={(e) => handleAttributeChange(index, "value", e.target.value)}
-                />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <button onClick={handleAddNewAttribute} className={styles.addButton}>Yeni Özellik Ekle</button>
-      <div className={styles.buttonContainer}>
-        <button onClick={handleSaveNewAttributes} className={styles.saveButton}>Kaydet</button>
-        <button onClick={handlePostNewAttribute} className={styles.saveButton}>Yeni Özellikleri Kaydet</button>
-        <button onClick={closePanel} className={styles.cancelButton}>İptal</button>
+    <div className={styles.overlay}>
+      <div className={styles.editPanel} ref={panelRef}>
+        <h2>Özellikleri Düzenle</h2>
+
+        <div className={styles.tableContainer}>
+          <table className={styles.attributesTable}>
+            <thead>
+              <tr>
+                <th>Özellik</th>
+                <th>Değer</th>
+              </tr>
+            </thead>
+            <tbody>
+              {attributes.map((attr, index) => (
+                <tr key={index}>
+                  <td>
+                    <input
+                      type="text"
+                      value={attr.key}
+                      onChange={(e) => handleAttributeChange(index, "key", e.target.value)}
+                    />
+                  </td>
+                  <td>
+                    <textarea
+                      value={attr.value}
+                      onChange={(e) => handleAttributeChange(index, "value", e.target.value)}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <button onClick={handleAddNewAttribute} className={styles.addButton}>Yeni Özellik Ekle</button>
+        <div className={styles.buttonContainer}>
+          <button onClick={handleSaveNewAttributes} className={styles.saveButton}>Kaydet</button>
+          <button onClick={handlePostNewAttribute} className={styles.saveButton}>Yeni Özellikleri Kaydet</button>
+          <button onClick={closePanel} className={styles.cancelButton}>İptal</button>
+        </div>
       </div>
     </div>
   );

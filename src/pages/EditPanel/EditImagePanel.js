@@ -1,11 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AxiosInstance from "../../axios/AxiosInstance";
 import styles from "./EditPanel.module.css";
 
 const EditImagePanel = ({ product, closePanel }) => {
   const [images, setImages] = useState([]);
   const [newImages, setNewImages] = useState([]);
-  const [previewNewImage, setPreviewNewImage] = useState(null);
+  const [previewNewImages, setPreviewNewImages] = useState([]);
+  const panelRef = useRef(null);
+
+  // Panel dışına tıklanınca kapatma
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (panelRef.current && !panelRef.current.contains(event.target)) {
+        closePanel();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [closePanel]);
 
   useEffect(() => {
     if (product && product.id) {
@@ -37,11 +52,9 @@ const EditImagePanel = ({ product, closePanel }) => {
   };
 
   const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setNewImages([file]);
-      setPreviewNewImage(URL.createObjectURL(file));
-    }
+    const files = Array.from(event.target.files);
+    setNewImages(files);
+    setPreviewNewImages(files.map((file) => URL.createObjectURL(file)));
   };
 
   const handleUploadImage = () => {
@@ -73,33 +86,36 @@ const EditImagePanel = ({ product, closePanel }) => {
   };
 
   return (
-    <div className={styles.editPanel}>
-      <h2>Ürün Resimlerini Yönet</h2>
-      <div className={styles.imagePreviewContainer}>
-        {images.map((img, index) => (
-          <div key={index} className={styles.imageWrapper}>
-            <img
-              src={`http://localhost:8080/api/products/uploads/products/${product.id}/${img.split("/").pop()}`}
-              alt={`Ürün ${index}`}
-              className={styles.previewImage}
-            />
-            <button 
-              className={styles.imageDeleteButton} 
-              onClick={() => handleDeleteImage(index)}
-            >✖</button>
-          </div>
-        ))}
-      </div>
-      <input type="file" accept="image/*" onChange={handleImageChange} />
-      {previewNewImage && (
-        <div className={styles.newImagePreview}>
-          <h3>Yeni Seçilen Resim:</h3>
-          <img src={previewNewImage} alt="Önizleme" className={styles.previewImage} />
+    <div className={styles.overlay}>
+      <div className={styles.editPanel} ref={panelRef}>
+        <h2>Ürün Resimlerini Yönet</h2>
+        <div className={styles.imagePreviewContainer}>
+          {/* Mevcut resimler */}
+          {images.map((img, index) => (
+            <div key={index} className={styles.imageWrapper}>
+              <img
+                src={`http://localhost:8080/api/products/uploads/products/${product.id}/${img.split("/").pop()}`}
+                alt={`Ürün ${index}`}
+                className={styles.previewImage}
+              />
+              <button 
+                className={styles.imageDeleteButton} 
+                onClick={() => handleDeleteImage(index)}
+              >✖</button>
+            </div>
+          ))}
+          {/* Yeni seçilen resimler */}
+          {previewNewImages.map((img, index) => (
+            <div key={`new-${index}`} className={styles.imageWrapper}>
+              <img src={img} alt={`Yeni Resim ${index}`} className={styles.previewImage} />
+            </div>
+          ))}
         </div>
-      )}
-      <div className={styles.buttonContainer}>
-        <button onClick={handleUploadImage} className={styles.uploadButton}>Resimleri Kaydet</button>
-        <button onClick={closePanel} className={styles.cancelButton}>İptal</button>
+        <input type="file" accept="image/*" multiple onChange={handleImageChange} />
+        <div className={styles.buttonContainer}>
+          <button onClick={handleUploadImage} className={styles.uploadButton}>Resimleri Kaydet</button>
+          <button onClick={closePanel} className={styles.cancelButton}>İptal</button>
+        </div>
       </div>
     </div>
   );

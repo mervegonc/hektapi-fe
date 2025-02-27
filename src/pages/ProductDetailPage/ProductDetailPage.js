@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useEffect, useState, useRef } from "react";
+import { useParams } from "react-router-dom";
 import AxiosInstance from "../../axios/AxiosInstance";
 import styles from "./ProductDetailPage.module.css";
 import Navbar from "../../components/Navbar/Navbar";
@@ -10,12 +10,12 @@ import EditAttributesPanel from "../EditPanel/EditAttributesPanel";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const [editMode, setEditMode] = useState(null);
+  const optionsRef = useRef(null);
 
   useEffect(() => {
     const userRole = localStorage.getItem("role");
@@ -30,59 +30,96 @@ const ProductDetailPage = () => {
       });
   }, [id]);
 
-  if (!product) return <p>Yükleniyor...</p>;
+  // **Panel dışına tıklanınca kapatma fonksiyonu**
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (optionsRef.current && !optionsRef.current.contains(event.target)) {
+        setIsOptionsOpen(false);
+      }
+    };
+
+    if (isOptionsOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOptionsOpen]);
+
+  if (!product) {
+    return <p>Yükleniyor...</p>;
+  }
 
   const images = product.images || [];
 
   const toggleOptionsMenu = () => {
-    setIsOptionsOpen(!isOptionsOpen);
+    setIsOptionsOpen((prev) => !prev);
   };
 
   const toggleEditMode = (mode) => {
     setEditMode((prevMode) => (prevMode === mode ? null : mode));
+    setIsOptionsOpen(false);
   };
 
   return (
     <div>
       <Navbar />
       <div className={styles.productDetail}>
-        {/* 3 Noktalı Menü */}
-        {isAdmin && (
-          <div className={styles.optionsContainer}>
-            <FaEllipsisV className={styles.optionsIcon} onClick={toggleOptionsMenu} />
-            {isOptionsOpen && (
-              <div className={styles.optionsPanel}>
-                <button onClick={() => toggleEditMode("details")}>Ürün Bilgilerini Düzenle</button>
-                <button onClick={() => toggleEditMode("attributes")}>Özellikleri Düzenle</button>
-                <button onClick={() => toggleEditMode("images")}>Resimleri Yönet</button>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Ürün Resmi */}
-        <div className={styles.imageSection}>
-          {images.length > 0 && (
-            <img
-              src={`http://localhost:8080/api/products/uploads/products/${product.id}/${images[currentImageIndex].split("/").pop()}`}
-              alt={product.name}
-              className={styles.productImage}
-            />
+        {/* Üst Bölüm: Resim + Ürün Bilgileri */}
+        <div className={styles.topSection}>
+          {/* 3 Noktalı Menü */}
+          {isAdmin && (
+            <div className={styles.optionsContainer} ref={optionsRef}>
+              <FaEllipsisV className={styles.optionsIcon} onClick={toggleOptionsMenu} />
+              {isOptionsOpen && (
+                <div className={styles.optionsPanel}>
+                  <button onClick={() => toggleEditMode("details")}>Ürün Bilgilerini Düzenle</button>
+                  <button onClick={() => toggleEditMode("attributes")}>Özellikleri Düzenle</button>
+                  <button onClick={() => toggleEditMode("images")}>Resimleri Yönet</button>
+                </div>
+              )}
+            </div>
           )}
-          <button className={styles.leftArrow} onClick={() => setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)}>
-            <FaChevronLeft />
-          </button>
-          <button className={styles.rightArrow} onClick={() => setCurrentImageIndex((prev) => (prev + 1) % images.length)}>
-            <FaChevronRight />
-          </button>
-        </div>
 
-        {/* Ürün Bilgileri */}
-        <div className={styles.infoSection}>
-          <h2>{product.name}</h2>
-          <p><strong>Kod:</strong> {product.code}</p>
-          <p><strong>Kategori:</strong> {product.categoryName}</p>
-          <p><strong>Açıklama:</strong> {product.information}</p>
+          {/* Ürün Resmi */}
+          <div className={styles.imageSection}>
+            {images.length > 0 && (
+              <img
+                src={`http://localhost:8080/api/products/uploads/products/${product.id}/${images[currentImageIndex].split("/").pop()}`}
+                alt={product.name}
+                className={styles.productImage}
+              />
+            )}
+            <button className={styles.leftArrow} onClick={() => setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)}>
+              <FaChevronLeft />
+            </button>
+            <button className={styles.rightArrow} onClick={() => setCurrentImageIndex((prev) => (prev + 1) % images.length)}>
+              <FaChevronRight />
+            </button>
+
+            {/* Küçük Önizleme Resimleri */}
+            <div className={styles.imagePreviewContainer}>
+              {images.map((img, index) => (
+                <img
+                  key={index}
+                  src={`http://localhost:8080/api/products/uploads/products/${product.id}/${img.split("/").pop()}`}
+                  alt={`Önizleme ${index}`}
+                  className={`${styles.previewImage} ${currentImageIndex === index ? styles.selectedImage : ""}`}
+                  onClick={() => setCurrentImageIndex(index)} style={{ transition: 'none' }}
+
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Ürün Bilgileri */}
+          <div className={styles.infoSection}>
+            <h2>{product.name}</h2>
+            <p><strong>Kod:</strong> {product.code}</p>
+            <p><strong>Kategori:</strong> {product.categoryName}</p>
+            <p><strong></strong> {product.information}</p>
+          </div>
         </div>
 
         {/* Özellikler Tablosu */}

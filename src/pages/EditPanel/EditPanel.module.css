@@ -1,18 +1,28 @@
-/* Düzenleme Panelleri Stilleri */
+/* Panel Arkaplan Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
 
+/* Düzenleme Paneli */
 .editPanel {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1002;
-    width: 90%;
-    max-width: 600px;
-  }
+  width: 800px;
+  max-width: 800px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+}
+
   
   .editPanel h2 {
     margin-top: 0;
@@ -61,22 +71,8 @@
     color: white;
   }
   
-  .attributesTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
   
-  .attributesTable th,
-  .attributesTable td {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  
-  .attributesTable th {
-    background-color: #f2f2f2;
-    text-align: left;
-  }
+
   
   .addButton {
     padding: 10px 20px;
@@ -88,20 +84,21 @@
   
   }
    
-  /* Edit Panel için CSS *//* Edit Panel için CSS */
+/* Düzenleme Paneli */
 .editPanel {
-    width: 500px;
+    width: 700px;  /* 🔥 Genişliği artır (varsayılan 500px idi) */
     max-width: 90%;
     background: white;
-    padding: 20px;
-    border-radius: 8px;
+    padding: 30px; /* İç boşluğu artır */
+    border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1000;
-  }
+    z-index: 1001;
+}
+
   
   /* Resimleri İçeren Container */
   .imagePreviewContainer {
@@ -110,9 +107,9 @@
     gap: 10px;
     justify-content: center;
     margin-bottom: 15px;
-    max-height: 300px; /* Aşarsa dikey scrollbar */
+    max-height: 300px;
     overflow-y: auto;
-  }
+}
   
   /* Her bir resmin sarmalayıcısı */
   .imageWrapper {
@@ -214,4 +211,48 @@
   .cancelButton:hover {
     background-color: #c82333;
   }
-  
+  .autoResizeTextarea {
+    width: 100%;
+    min-height: 50px;
+    max-height: 500px; /* Çok uzun olursa 500px’de sınırlandır */
+    overflow-y: auto;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    resize: none; /* Manuel boyutlandırmayı kapat */
+}
+.attributesTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.attributesTable th, .attributesTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.keyColumn {
+  width: 30%;
+}
+
+.valueColumn {
+  width: 70%;
+}
+
+.keyInput {
+  width: 100%;
+  font-size: 14px;
+}
+
+.valueTextarea {
+  width: 100%;
+  min-height: 50px;
+  max-height: 200px; /* Çok uzun olursa sınırlandır */
+  overflow-y: auto;
+  padding: 8px;
+  font-size: 14px;
+  resize: none; /* Manuel boyutlandırmayı kapat */
+}
