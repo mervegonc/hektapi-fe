@@ -222,37 +222,3 @@
     font-size: 14px;
     resize: none; /* Manuel boyutlandırmayı kapat */
 }
-.attributesTable {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-.attributesTable th, .attributesTable td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
-
-.keyColumn {
-  width: 30%;
-}
-
-.valueColumn {
-  width: 70%;
-}
-
-.keyInput {
-  width: 100%;
-  font-size: 14px;
-}
-
-.valueTextarea {
-  width: 100%;
-  min-height: 50px;
-  max-height: 200px; /* Çok uzun olursa sınırlandır */
-  overflow-y: auto;
-  padding: 8px;
-  font-size: 14px;
-  resize: none; /* Manuel boyutlandırmayı kapat */
-}

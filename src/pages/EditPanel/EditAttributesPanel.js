@@ -20,17 +20,41 @@ const EditAttributesPanel = ({ product, closePanel }) => {
     };
   }, [closePanel]);
 
+  // Key veya Value değiştikçe güncelle
   const handleAttributeChange = (index, field, value) => {
     const newAttributes = [...attributes];
     newAttributes[index][field] = value;
     setAttributes(newAttributes);
   };
 
+  // Yeni boş attribute satırı ekle
   const handleAddNewAttribute = () => {
     setAttributes([...attributes, { key: "", value: "" }]);
   };
 
-  // 📌 **Mevcut Özellikleri Güncelle (PUT /products/{id})**
+  // ➜ Özelliği key-value ile sil
+  const handleDeleteAttribute = (index, key, value) => {
+    // Eğer attribute henüz eklenmemişse (id yoksa) sadece local state'ten kaldır
+    if (!attributes[index].id) {
+      setAttributes(attributes.filter((_, i) => i !== index));
+      return;
+    }
+
+    // Mevcut attribute'u backend'e istek atarak sil
+    AxiosInstance.delete(`/products/${product.id}/attributes/delete-by-key-value`, {
+      params: { key, value }
+    })
+      .then(() => {
+        alert(`"${key}" özelliği silindi!`);
+        // Local state'ten de kaldır
+        setAttributes(attributes.filter((_, i) => i !== index));
+      })
+      .catch(() => {
+        alert(`"${key}" özelliği silinirken hata oluştu!`);
+      });
+  };
+
+  // **Mevcut özellikleri PUT isteğiyle güncelle (ID'si olan satırlar)**
   const handleSaveNewAttributes = () => {
     AxiosInstance.put(`/products/${product.id}`, {
       name: product.name,
@@ -49,17 +73,18 @@ const EditAttributesPanel = ({ product, closePanel }) => {
       });
   };
 
-  // 📌 **Yeni Özellik Ekle (POST /products/add-attribute)**
+  // **Yeni eklenen özellikleri POST isteğiyle ekle (ID'si olmayan satırlar)**
   const handlePostNewAttribute = () => {
-    // Yeni eklenen özellikleri filtrele (ID’si olmayanlar yeni eklenmiştir)
-    const newAttributes = attributes.filter(attr => !attr.id);
+    // Yeni eklenen satırları filtrele (ID’si olmayanlar)
+    const newAttributes = attributes.filter((attr) => !attr.id);
 
     if (newAttributes.length === 0) {
       alert("Yeni eklenen bir özellik bulunamadı!");
       return;
     }
 
-    newAttributes.forEach(attr => {
+    // Her yeni attribute için backend'e POST isteği
+    newAttributes.forEach((attr) => {
       AxiosInstance.post(`/products/add-attribute`, {
         productId: product.id,
         key: attr.key,
@@ -67,10 +92,10 @@ const EditAttributesPanel = ({ product, closePanel }) => {
       })
         .then(() => {
           alert(`"${attr.key}" özelliği başarıyla eklendi!`);
-          window.location.reload();
+          window.location.reload(); // Tekrar yükleyerek güncel durumu al
         })
         .catch(() => {
-          alert(`"${attr.key}" eklenirken hata oluştu.`);
+          alert(`"${attr.key}" eklenirken hata oluştu!`);
         });
     });
   };
@@ -92,11 +117,21 @@ const EditAttributesPanel = ({ product, closePanel }) => {
               {attributes.map((attr, index) => (
                 <tr key={index}>
                   <td>
-                    <input
-                      type="text"
-                      value={attr.key}
-                      onChange={(e) => handleAttributeChange(index, "key", e.target.value)}
-                    />
+                    {/* Key input + Sil ikonu */}
+                    <div className={styles.keyWithIcon}>
+                      <input
+                        type="text"
+                        value={attr.key}
+                        onChange={(e) => handleAttributeChange(index, "key", e.target.value)}
+                      />
+                      <button
+                        className={styles.deleteIcon}
+                        onClick={() => handleDeleteAttribute(index, attr.key, attr.value)}
+                        title="Bu özelliği sil"
+                      >
+                        ✖
+                      </button>
+                    </div>
                   </td>
                   <td>
                     <textarea
@@ -110,11 +145,19 @@ const EditAttributesPanel = ({ product, closePanel }) => {
           </table>
         </div>
 
-        <button onClick={handleAddNewAttribute} className={styles.addButton}>Yeni Özellik Ekle</button>
+        <button onClick={handleAddNewAttribute} className={styles.addButton}>
+          Yeni Özellik Ekle
+        </button>
         <div className={styles.buttonContainer}>
-          <button onClick={handleSaveNewAttributes} className={styles.saveButton}>Kaydet</button>
-          <button onClick={handlePostNewAttribute} className={styles.saveButton}>Yeni Özellikleri Kaydet</button>
-          <button onClick={closePanel} className={styles.cancelButton}>İptal</button>
+          <button onClick={handleSaveNewAttributes} className={styles.saveButton}>
+            Kaydet
+          </button>
+          <button onClick={handlePostNewAttribute} className={styles.saveButton}>
+            Yeni Özellikleri Kaydet
+          </button>
+          <button onClick={closePanel} className={styles.cancelButton}>
+            İptal
+          </button>
         </div>
       </div>
     </div>
