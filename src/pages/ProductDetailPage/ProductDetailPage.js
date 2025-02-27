@@ -7,6 +7,7 @@ import { FaEllipsisV, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import EditProductPanel from "../EditPanel/EditProductPanel";
 import EditImagePanel from "../EditPanel/EditImagePanel";
 import EditAttributesPanel from "../EditPanel/EditAttributesPanel";
+import DeleteProductPanel from "../EditPanel/DeleteProductPanel";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -77,6 +78,7 @@ const ProductDetailPage = () => {
                   <button onClick={() => toggleEditMode("details")}>Ürün Bilgilerini Düzenle</button>
                   <button onClick={() => toggleEditMode("attributes")}>Özellikleri Düzenle</button>
                   <button onClick={() => toggleEditMode("images")}>Resimleri Yönet</button>
+                  <button onClick={() => toggleEditMode("delete")}>Ürünü Sil</button> {/* ✅ DELETE BUTONU EKLENDİ */}
                 </div>
               )}
             </div>
@@ -168,6 +170,15 @@ const ProductDetailPage = () => {
           closePanel={() => setEditMode(null)}
         />
       )}
+      {editMode === "delete" && (
+  <DeleteProductPanel
+    productId={product.id}
+    closePanel={() => setEditMode(null)}
+    setEditMode={setEditMode} // ✅ `setEditMode` prop olarak gönderildi
+  />
+)}
+
+
     </div>
   );
 };

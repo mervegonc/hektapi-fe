@@ -20,9 +20,15 @@
   justify-items: center; /* Kartları ortalar */
 }
 
+
+
+.productItem:hover {
+  transform: translateY(-3px);
+}
+/* 📌 Ürün Kartı */
 .productItem {
-  width: 280px; /* Kart genişliği */
-  height: 360px; /* Kart yüksekliği artırıldı */
+  width: 280px;
+  height: 420px; /* Kartın yüksekliği artırıldı */
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -31,45 +37,45 @@
   transition: transform 0.2s ease-in-out;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
-  flex-direction: column; /* Resim ve bilgileri dikey hizalar */
-  justify-content: space-between; /* İçeriği kartın içinde dengeler */
+  flex-direction: column;
 }
 
-.productItem:hover {
-  transform: translateY(-3px);
-}
-
-/* 📌 Resim Alanı */
+/* 📌 Resim Alanı (Kartın %85'i) */
 .productImage {
   width: 100%;
-  height: 200px; /* Sabit yükseklik */
-  object-fit: cover; /* Resmi düzgün yerleştirir */
+  height: 85%; /* %85 oranında */
+  object-fit: cover;
   border-radius: 5px;
 }
 
-/* 📌 Ürün Bilgileri */
+/* 📌 Ürün Bilgileri (Kartın %15'i) */
 .productInfo {
-  padding: 10px 0;
+  height: 15%; /* %15 oranında */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* İçeriği ortalar */
+  padding: 5px;
 }
 
 .productName {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 }
 
 .productCode {
-  font-size: 12px;
+  font-size: 10px;
   color: #555;
 }
 
 .productDescription {
-  font-size: 11px;
+  font-size: 10px;
   color: #777;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
 
 /* ✅ Responsive */
 @media (max-width: 1200px) {
