@@ -1,0 +1,217 @@
+/* Düzenleme Panelleri Stilleri */
+
+.editPanel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1002;
+    width: 90%;
+    max-width: 600px;
+  }
+  
+  .editPanel h2 {
+    margin-top: 0;
+  }
+  
+  .editPanel label {
+    display: block;
+    margin-top: 10px;
+  }
+  
+  .editPanel input[type="text"],
+  .editPanel textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .editPanel textarea {
+    resize: vertical;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  
+  .saveButton,
+  .cancelButton {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .saveButton {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .cancelButton {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .attributesTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .attributesTable th,
+  .attributesTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .attributesTable th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
+  .addButton {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  
+  }
+   
+  /* Edit Panel için CSS *//* Edit Panel için CSS */
+.editPanel {
+    width: 500px;
+    max-width: 90%;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+  }
+  
+  /* Resimleri İçeren Container */
+  .imagePreviewContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 15px;
+    max-height: 300px; /* Aşarsa dikey scrollbar */
+    overflow-y: auto;
+  }
+  
+  /* Her bir resmin sarmalayıcısı */
+  .imageWrapper {
+    position: relative;
+    width: 100px;    /* Küçük boyut için */
+    height: 100px;
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border 0.3s ease-in-out;
+  }
+  
+  /* Üzerine gelince mavi çerçeve */
+  .imageWrapper:hover {
+    border: 2px solid #007bff;
+  }
+  
+  /* Seçilirse (istersen kullanabilirsin) */
+  .selectedImage {
+    border: 3px solid #ff0000 !important;
+  }
+  
+  /* Resmin kendisi */
+  .previewImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Her resmin üstündeki sil butonu */
+  .imageDeleteButton {
+    position: absolute;
+    top: 5px;       /* Sağ üst köşeye hizalandı */
+    right: 5px;
+    background: rgba(255, 0, 0, 0.8);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 3px 6px;
+    border-radius: 5px;
+    font-size: 12px;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+  }
+  
+  .imageDeleteButton:hover {
+    opacity: 1;
+  }
+  
+  /* Yeni seçilen resmin önizleme bölümü */
+  .newImagePreview {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  /* Sil, Kaydet, İptal butonları */
+  .deleteButton {
+    display: block;
+    margin: 10px auto;
+    background: #ff0000;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+  
+  .uploadButton, .cancelButton {
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .uploadButton {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .uploadButton:hover {
+    background-color: #218838;
+  }
+  
+  .cancelButton {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .cancelButton:hover {
+    background-color: #c82333;
+  }
+  

@@ -9,7 +9,6 @@ import ProfilePage from './pages/ProfilePage/ProfilePage'
 import ProductUploadPage from './pages/ProductUploadPage/ProductUploadPage';
 import ProductPage from './pages/ProductPage/ProductPage';
 import ProductDetailPage from './pages/ProductDetailPage/ProductDetailPage';
-
 function App() {
 
   useEffect(() => {
