@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AxiosInstance from "../../axios/AxiosInstance";
-import Navbar from "../../components/Navbar/Navbar"; 
+ 
 import styles from "./ProductPage.module.css";
 
 const ProductPage = () => {
@@ -20,7 +20,7 @@ const ProductPage = () => {
 
   return (
     <div className={styles.productPage}>
-      <Navbar />
+      
       <div className={styles.productContainer}>
         <ul className={styles.productList}>
           {products.map((product) => (

@@ -3,7 +3,7 @@ import axios from "axios"; // AxiosInstance yerine axios kullanıyoruz
 import { TextField, Button, Typography, Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import styles from "./AuthPage.module.css";
-import Navbar from "../../components/Navbar/Navbar";
+
 
 const AuthPage = () => {
   const [page, setPage] = useState("signin"); // "signin" veya "signup"
@@ -69,7 +69,7 @@ const AuthPage = () => {
 
   return (
     <div>
-      <Navbar />
+      
       <div className={styles.authContainer}>
         <Paper elevation={5} className={styles.authPaper}>
           <Typography className={styles.authTitle}>

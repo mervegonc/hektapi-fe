@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../axios/AxiosInstance"; // Token'i ekleyen axios instance
-import Navbar from "../../components/Navbar/Navbar";
+
 import styles from "./ProductUploadPage.module.css";
 
 const ProductUploadPage = () => {
@@ -99,7 +99,7 @@ const ProductUploadPage = () => {
 
   return (
     <div className={styles.container}>
-      <Navbar />
+      
       <h2 className={styles.title}>Ürün Yükleme Sayfası</h2>
       <form className={styles.form} onSubmit={handleSubmit}>
         <input

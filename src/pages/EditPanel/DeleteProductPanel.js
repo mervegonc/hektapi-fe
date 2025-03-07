@@ -1,31 +1,24 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; // 🚀 useNavigate import edildi
 import AxiosInstance from "../../axios/AxiosInstance";
 import styles from "./EditPanel.module.css";
 
 const DeleteProductPanel = ({ productId, closePanel, setEditMode }) => {
-  const handleDeleteProduct = async () => {
-    if (!window.confirm("Bu ürünü tamamen silmek istediğinize emin misiniz?")) return;
+  const navigate = useNavigate(); // 🚀 Navigasyon için hook kullanılıyor
 
+  const handleDeleteProduct = async () => {
     try {
       const token = localStorage.getItem("token");
-      if (!token) {
-        alert("Yetkilendirme hatası: Lütfen tekrar giriş yapın.");
-        return;
-      }
+      if (!token) return; // Eğer token yoksa işlem yapma
 
       await AxiosInstance.delete(`/products/${productId}/delete-completely`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
-      alert("Ürün başarıyla silindi!");
-      window.location.reload();
       closePanel();
+      navigate("/product"); // 🚀 Silindikten sonra yönlendir
     } catch (error) {
       console.error("Silme işlemi başarısız:", error);
-      alert(`Ürün silinirken hata oluştu! \n${error.response?.data?.message || error.message}`);
     }
   };
 

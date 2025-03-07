@@ -2,12 +2,13 @@ import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import AxiosInstance from "../../axios/AxiosInstance";
 import styles from "./ProductDetailPage.module.css";
-import Navbar from "../../components/Navbar/Navbar";
+
 import { FaEllipsisV, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import EditProductPanel from "../EditPanel/EditProductPanel";
 import EditImagePanel from "../EditPanel/EditImagePanel";
 import EditAttributesPanel from "../EditPanel/EditAttributesPanel";
 import DeleteProductPanel from "../EditPanel/DeleteProductPanel";
+import EmailCard from "../../components/Email/EmailCard";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -65,7 +66,7 @@ const ProductDetailPage = () => {
 
   return (
     <div>
-      <Navbar />
+      
       <div className={styles.productDetail}>
         {/* Üst Bölüm: Resim + Ürün Bilgileri */}
         <div className={styles.topSection}>
@@ -147,6 +148,8 @@ const ProductDetailPage = () => {
             <p>Bu ürüne ait özellik bulunmamaktadır.</p>
           )}
         </div>
+
+        <EmailCard productName={product.name} productCode={product.code} />
       </div>
 
       {/* Edit Panelleri */}

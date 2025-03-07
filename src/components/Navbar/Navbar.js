@@ -20,20 +20,20 @@ const Navbar = () => {
       {/* Logo */}
       <div className={styles.logoContainer}>
         <img src={logo} alt="Logo" className={styles.logo} />
+        <span className={styles.brandName}>HEKTAPİ</span>
       </div>
 
       {/* Menü Linkleri */}
       <ul className={styles.navLinks}>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/product">Product</Link></li>
+        <li><Link to="/">Ana Sayfa</Link></li>
+        <li><Link to="/product">Ürünler</Link></li>
 
         {/* 🔒 Yalnızca Admin'lere Görünecek */}
         {role === "ROLE_ADMIN" && (
-          <li><Link to="/productupload">Product Upload</Link></li>
+          <li><Link to="/productupload">Ürün Yükleme</Link></li>
         )}
 
-        <li><Link to="/help">Help</Link></li>
-        <li><Link to="/about">About Us</Link></li>
+       {/* <li><Link to="/about">İletişim</Link></li>*/}
       </ul>
 
       {/* Sağ Menü */}
@@ -42,12 +42,12 @@ const Navbar = () => {
 
         {/* Kullanıcı giriş yaptıysa "Profile" butonu, yoksa "Login" butonu göster */}
         {token ? (
-          <Link to={`/profile/${userId}`} className={styles.loginButton}>Profile</Link>
+          <Link to={`/profile/${userId}`} className={styles.loginButton}>Profil</Link>
         ) : (
-          <Link to="/login" className={styles.loginButton}>Login</Link>
+          <Link to="/login" className={styles.loginButton}>Giriş</Link>
         )}
 
-        <Link to="/cart" className={styles.loginButton}>Sepetim</Link>
+       
       </div>
     </nav>
   );

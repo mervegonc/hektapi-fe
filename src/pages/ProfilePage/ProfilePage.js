@@ -4,7 +4,7 @@ import {
   Box, Typography, Paper, Avatar, CircularProgress, TextField, Button 
 } from "@mui/material";
 import { useParams,useNavigate  } from "react-router-dom";
-import Navbar from "../../components/Navbar/Navbar";
+
 import styles from "./ProfilePage.module.css";
 
 const ProfilePage = () => {
@@ -123,7 +123,7 @@ const ProfilePage = () => {
 
   return (
     <div>
-      <Navbar />
+      
       <Box className={styles.profileContainer}>
         <Paper elevation={5} className={styles.profileCard}>
           <Avatar src={"/default-profile.png"} className={styles.avatar} />
