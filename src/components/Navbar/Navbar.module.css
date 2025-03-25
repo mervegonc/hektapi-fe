@@ -67,28 +67,42 @@
 .loginButton:hover {
   background-color:  #fff200;
 }
+
+/*search*/
 .searchBar {
-  padding: 6px;
+  padding: 8px;
   border-radius: 4px;
   border: 1px solid #ccc;
+  width: 180px;
+  position: relative;
+  z-index: 2;
 }
 
 .searchResults {
   position: absolute;
-  top: 60px;
-  right: 150px;
-  background: white;
+  top: 100%; /* input'un hemen altı */
+  left: 0;
+  width: 180px;
+  background-color: white;
   border: 1px solid #ddd;
   border-radius: 4px;
-  width: 200px;
-  z-index: 1000;
+  margin-top: 4px;
+  z-index: 10;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 .resultItem {
-  padding: 8px;
+  padding: 8px 12px;
   cursor: pointer;
+  border-bottom: 1px solid #eee;
 }
 
 .resultItem:hover {
-  background-color: #f0f0f0;
+  background-color: #f2f2f2;
+}
+
+.rightMenu {
+  position: relative; /* Referans noktası için */
 }
