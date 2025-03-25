@@ -18,6 +18,7 @@ const ProductDetailPage = () => {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const [editMode, setEditMode] = useState(null);
   const optionsRef = useRef(null);
+  const [showEmailCard, setShowEmailCard] = useState(false);
 
   useEffect(() => {
     const userRole = localStorage.getItem("role");
@@ -149,7 +150,33 @@ const ProductDetailPage = () => {
           )}
         </div>
 
-        <EmailCard productName={product.name} productCode={product.code} />
+{/* Buton */}
+<div style={{ textAlign: "center", marginTop: "20px" }}>
+  <button
+    style={{
+      padding: "10px 20px",
+      backgroundColor: "#007bff",
+      color: "#fff",
+      border: "none",
+      borderRadius: "4px",
+      cursor: "pointer",
+    }}
+    onClick={() => setShowEmailCard(!showEmailCard)}
+  >
+    {showEmailCard ? "Kapat" : "Ürün Hakkında Bilgi Al"}
+  </button>
+</div>
+
+{/* Email Card bileşeni */}
+{showEmailCard && (
+  <EmailCard
+    productName={product.name}
+    productCode={product.code}
+    onClose={() => setShowEmailCard(false)}
+  />
+)}
+
+
       </div>
 
       {/* Edit Panelleri */}

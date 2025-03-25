@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styles from "./EmailCard.module.css";
-import AxiosInstance from "../../axios/AxiosInstance";
+import axios from "axios"; // 🔴 AxiosInstance yerine doğrudan axios kullanacağız!
 
-const EmailCard = ({ productName, productCode }) => {
+const EmailCard = ({ productName, productCode, onClose  }) => {
   const [userEmail, setUserEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
@@ -12,9 +12,16 @@ const EmailCard = ({ productName, productCode }) => {
       alert("Lütfen tüm alanları doldurun!");
       return;
     }
-
+  
+    // Geçerli email kontrolü
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(userEmail)) {
+      alert("Lütfen geçerli bir e-posta adresi girin!");
+      return;
+    }
+  
     try {
-      await AxiosInstance.post("/email/send", {
+      await axios.post("http://localhost:8080/api/email/send", {
         userEmail,
         subject,
         message,
@@ -26,11 +33,13 @@ const EmailCard = ({ productName, productCode }) => {
       setUserEmail("");
       setSubject("");
       setMessage("");
+      onClose?.(); // 👈 gönderildikten sonra paneli kapat
     } catch (error) {
       console.error("E-posta gönderme hatası:", error);
       alert("E-posta gönderilirken hata oluştu!");
     }
   };
+  
 
   return (
     <div className={styles.emailCard}>

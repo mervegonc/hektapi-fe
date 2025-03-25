@@ -22,35 +22,49 @@ const AuthPage = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Form gönderme işlemi
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setSuccessMessage("");
-
+  
     try {
       if (page === "signin") {
-        // Kullanıcı giriş işlemi için doğrudan axios kullanıyoruz
+        // 🔐 Giriş işlemi
         const response = await axios.post("http://localhost:8080/api/auth/signin", {
           usernameOrEmail: formData.email,
           password: formData.password,
         });
-
+    
         if (response.status === 200 && response.data.token) {
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("userId", response.data.userId);
-          navigate(`/profile/${response.data.userId}`);
-        } else {
-          setError("Yanlış kullanıcı adı veya şifre.");
+        
+          if (response.data.roles?.includes("ROLE_ADMIN")) {
+            localStorage.setItem("role", "ROLE_ADMIN");
+          } else {
+            localStorage.setItem("role", "USER");
+          }
+          
+          
+          // 🧠 Bu event App.js içindeki dinleyiciyi tetikliyor
+          window.dispatchEvent(new Event("loginSuccess"));
+          navigate("/");
+   
+      
         }
+        
+      
+    
+        
+        
       } else {
-        // Kullanıcı kayıt işlemi için doğrudan axios kullanıyoruz
+        // 🆕 Kayıt işlemi
         const response = await axios.post("http://localhost:8080/api/auth/signup", {
           username: formData.username,
           email: formData.email,
           password: formData.password,
         });
-
+  
         if (response.status === 201) {
           setSuccessMessage("Kayıt başarılı! Şimdi giriş yapabilirsiniz.");
           setPage("signin");
@@ -66,6 +80,7 @@ const AuthPage = () => {
       }
     }
   };
+  
 
   return (
     <div>

@@ -13,8 +13,10 @@ AxiosInstance.interceptors.request.use((config) => {
   const endpoint = isAbsoluteURL ? new URL(config.url).pathname : config.url;
 
   // Eğer istek signin veya signup değilse, Authorization header ekleyelim
-  if (token && !endpoint.includes("/auth/signin") && !endpoint.includes("/auth/signup")) {
+  if (token && !endpoint.includes("/auth/signin") && !endpoint.includes("/auth/signup") &&  !endpoint.includes("/email/send") ) {
     config.headers.Authorization = `Bearer ${token}`;
+  }else {
+    delete config.headers.Authorization;
   }
 
   return config;

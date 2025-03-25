@@ -11,7 +11,8 @@ const ProfilePage = () => {
   const { userId } = useParams(); // URL'den userId'yi al
   const [userDetails, setUserDetails] = useState(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     education: "",
     homeAddress: "",
@@ -25,8 +26,13 @@ const ProfilePage = () => {
     dateOfBirth: "",
     nationality: "",
   });
-
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+  
     const fetchUserDetails = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/api/user/details/${userId}`);
@@ -34,9 +40,6 @@ const ProfilePage = () => {
           setUserDetails(response.data);
           setFormData(response.data);
   
-          console.log("Kullanıcı Rolleri:", response.data.roles); // Test için rolü yazdır
-  
-          // Kullanıcının rolünü localStorage'a kaydet
           if (response.data.roles && response.data.roles.includes("ROLE_ADMIN")) {
             localStorage.setItem("role", "ROLE_ADMIN");
           } else {
@@ -45,22 +48,27 @@ const ProfilePage = () => {
         }
       } catch (error) {
         console.error("Kullanıcı bilgileri alınırken hata oluştu", error);
+        // ❗ Eğer backend 401 dönerse login ekranına yönlendir
+        navigate("/login");
       } finally {
         setLoading(false);
       }
     };
   
     fetchUserDetails();
-  }, [userId]);
+  }, [userId, navigate]);
   
 
 
-   // Çıkış Fonksiyonu
-   const handleLogout = () => {
-    localStorage.removeItem("token"); // Token temizleme
-    sessionStorage.clear(); // Tüm session'ı temizle
-    navigate("/"); // Giriş sayfasına yönlendir
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("role");
+    window.dispatchEvent(new Event("storage")); // 🔥 Navbar'ı tetikler
+                   // Session da temizlendi
+    window.location.href = "/";               // Ana sayfaya yönlendirme (navigate yerine bu daha kesin)
   };
+  
 
   const handleChange = (e) => {
     setFormData({

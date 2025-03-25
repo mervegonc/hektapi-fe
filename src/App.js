@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
-import Layout from "./components/Layout/Layout";
+import Navbar from "./components/Navbar/Navbar"; // 👈 Layout'u sildin, Navbar'ı buraya aldık
 import AuthPage from "./pages/LoginPage/AuthPage";
 import HomePage from "./pages/HomePage/HomePage";
 import AxiosInstance from "./axios/AxiosInstance";
@@ -10,33 +10,56 @@ import ProductPage from "./pages/ProductPage/ProductPage";
 import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage";
 
 function App() {
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      AxiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    }
-  }, []);
+  const [token, setToken] = useState(null);
+  const [role, setRole] = useState(null);
+  const [userId, setUserId] = useState(null);
 
-  const role = localStorage.getItem("role");
+
+  useEffect(() => {
+    const handleLoginSuccess = () => {
+      const token = localStorage.getItem("token");
+      const role = localStorage.getItem("role");
+      const userId = localStorage.getItem("userId");
+  
+      setToken(token);
+      setRole(role);
+      setUserId(userId);
+    };
+  
+    window.addEventListener("loginSuccess", handleLoginSuccess);
+  
+    return () => {
+      window.removeEventListener("loginSuccess", handleLoginSuccess);
+    };
+  }, []);
+  
+  
+  
+
 
   return (
     <Router>
-      {/* ✅ Layout'u Routes içine sarıyoruz */}
-      <Layout>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<AuthPage />} />
-          <Route path="/profile/:userId" element={<ProfilePage />} />
-          <Route path="/product" element={<ProductPage />} />
-          <Route path="/product/:id" element={<ProductDetailPage />} />
 
-          {/* 🔒 Yalnızca Admin'lere Açık Sayfa */}
-          <Route
-            path="/productupload"
-            element={role === "ROLE_ADMIN" ? <ProductUploadPage /> : <Navigate to="/" />}
-          />
-        </Routes>
-      </Layout>
+      <Navbar key={token + role + userId} token={token} role={role} userId={userId} />
+
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<AuthPage />} />
+        <Route path="/profile/:userId" element={<ProfilePage />} />
+        <Route path="/product" element={<ProductPage />} />
+        <Route path="/product/:id" element={<ProductDetailPage />} />
+        <Route
+  path="/productupload"
+  element={
+    token && role === "ROLE_ADMIN" ? (
+      <ProductUploadPage />
+    ) : (
+      <Navigate to="/login" replace />
+    )
+  }
+/>
+
+      </Routes>
     </Router>
   );
 }
