@@ -1,3 +1,146 @@
+/* === GENEL NAVBAR STİLİ === */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background-color: #083c11;
+  position: relative;
+  z-index: 999;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 50px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.brandName {
+  font-size: 22px;
+  font-weight: bold;
+  color: #ff6600;
+}
+
+.navLinks {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navLinks li a {
+  text-decoration: none;
+  color: #ff6600;
+  font-size: 18px;
+  transition: color 0.3s ease-in-out;
+}
+
+.navLinks li a:hover {
+  color: #fff200;
+}
+
+.rightMenu {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.searchBar {
+  padding: 8px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+}
+
+.profileIcon {
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+/* === SEARCH SONUÇLARI === */
+.searchResults {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  width: 250px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 100;
+  top: 60px;
+  right: 10px;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.resultTitle {
+  font-weight: bold;
+  margin: 5px 10px;
+  color: #333;
+}
+
+.resultItem {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.resultItem:hover {
+  background-color: #f1f1f1;
+}
+
+/* === HAMBURGER ICON (MOBİL) === */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  color: white;
+}
+
+/* === MOBİL AÇILIR MENÜ === */
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 240px;
+  background: linear-gradient(to bottom, #083c11, #14532d);
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding-left: 25px;
+  z-index: 2000;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+  animation: slideIn 0.3s ease forwards;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.mobileMenu a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.mobileMenu a:hover {
+  color: #ffcc00;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* === ÜRÜNLER SAYFASI STİLİ === */
 .productPage {
   width: 100%;
   background-color: #f5f5f5;
@@ -13,22 +156,23 @@
 
 .productList {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 sütun */
+  grid-template-columns: repeat(5, 1fr); /* 5 sütun düzeni */
   gap: 20px;
   padding: 0;
   list-style: none;
-  justify-items: center; /* Kartları ortalar */
+  justify-items: center;
+  overflow-x: hidden;
 }
-
-
 
 .productItem:hover {
   transform: translateY(-3px);
 }
-/* 📌 Ürün Kartı */
+
+/* Ürün Kartı */
 .productItem {
-  width: 280px;
-  height: 420px; /* Kartın yüksekliği artırıldı */
+  width: 100%; /* Genişliği yüzde 100 yapıyoruz ki tüm alanı doldursun */
+  max-width: 220px; /* Ürün kartının genişliğini sınırla */
+  height: 280px; /* Kartın yüksekliği 280px */
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -40,31 +184,31 @@
   flex-direction: column;
 }
 
-/* 📌 Resim Alanı (Kartın %85'i) */
+/* Resim Alanı */
 .productImage {
   width: 100%;
-  height: 85%; /* %85 oranında */
+  height: 75%; /* Resmin yüksekliği %75 olarak ayarlandı */
   object-fit: cover;
   border-radius: 5px;
 }
 
-/* 📌 Ürün Bilgileri (Kartın %15'i) */
+/* Ürün Bilgileri */
 .productInfo {
-  height: 15%; /* %15 oranında */
+  height: 25%; /* Ürün bilgisi alanının yüksekliği %25 olarak ayarlandı */
   display: flex;
   flex-direction: column;
-  justify-content: center; /* İçeriği ortalar */
+  justify-content: center;
   padding: 5px;
 }
 
 .productName {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
   margin-bottom: 2px;
 }
 
 .productCode {
-  font-size: 10px;
+  font-size: 12px;
   color: #555;
 }
 
@@ -76,22 +220,47 @@
   text-overflow: ellipsis;
 }
 
-
-/* ✅ Responsive */
+/* ✅ Responsive Düzenlemeler */
 @media (max-width: 1200px) {
   .productList {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); /* 1200px altındaki ekranlar için 3 sütun */
   }
 }
 
 @media (max-width: 900px) {
   .productList {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* 900px altındaki ekranlar için 2 sütun */
+  }
+
+  .productItem {
+    max-width: 180px; /* Ürün kartının genişliğini daralt */
+    height: 250px; /* Kartın yüksekliğini küçült */
+  }
+
+  .productImage {
+    height: 70%; /* Resmin yüksekliğini %70 yap */
+  }
+
+  .productInfo {
+    height: 30%; /* Ürün bilgisi alanının yüksekliği %30 olarak ayarlandı */
   }
 }
 
 @media (max-width: 600px) {
   .productList {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* 600px altındaki ekranlar için 2 sütun */
+  }
+
+  .productItem {
+    max-width: 160px; /* Ürün kartlarının genişliğini biraz daha küçült */
+    height: 230px; /* Kartın yüksekliğini biraz daha küçült */
+  }
+
+  .productImage {
+    height: 65%; /* Resmin yüksekliğini %65 yap */
+  }
+
+  .productInfo {
+    height: 35%; /* Ürün bilgisi alanının yüksekliği %35 olarak ayarlandı */
   }
 }

@@ -1,12 +1,12 @@
 .content{
-   background-color:#e1c79b ;
+   background-color:#010f2c;
   
 }
 
 .content h2 {
   font-size: 50px;
   font-weight: bold;
-  color: #783702 !important; /* TURUNCU ARTIK ZORUNLU */
+  color:  #f9f99f!important; /* TURUNCU ARTIK ZORUNLU */
   text-align: center;
 
 }
@@ -16,7 +16,7 @@
 .content p {
   font-family: "Trick-GOP1a", sans-serif;
   font-size: 18px;
-  color: #783702;
+  color:  #f9f99f;
   text-align: left;
 }
 
@@ -121,5 +121,20 @@
     color: white;
     padding: 15px;
     text-align: center;
+  }
+  @media (max-width: 768px) {
+    .content {
+      padding: 30px 10px;
+    }
+  
+    .content h2 {
+      font-size: 28px;
+      text-align: center;
+    }
+  
+    .content p {
+      font-size: 14px;
+      text-align: justify;
+    }
   }
   

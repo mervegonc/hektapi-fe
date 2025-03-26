@@ -96,94 +96,105 @@ const ProductUploadPage = () => {
     }
   };
   
-
   return (
     <div className={styles.container}>
-      
-      <h2 className={styles.title}>Ürün Yükleme Sayfası</h2>
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <input
-          className={styles.input}
-          type="text"
-          name="name"
-          placeholder="Ürün Adı"
-          value={product.name}
-          onChange={handleChange}
-          required
-        />
-        <input
-          className={styles.input}
-          type="text"
-          name="information"
-          placeholder="Bilgi"
-          value={product.information}
-          onChange={handleChange}
-          required
-        />
-        <input
-          className={styles.input}
-          type="text"
-          name="code"
-          placeholder="Ürün Kodu"
-          value={product.code}
-          onChange={handleChange}
-          required
-        />
-
-        {/* 📌 9️⃣ Kategori Seçimi */}
-        <select
-          className={styles.select}
-          name="categoryId"
-          value={product.categoryId}
-          onChange={handleCategoryChange}
-          required
-        >
-          <option value="">Kategori Seçin</option>
-          {categories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
+      <div className={styles.card}>
+        <h2 className={styles.title}>Ürün Yükleme Sayfası</h2>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <input
+            className={styles.input}
+            type="text"
+            name="name"
+            placeholder="Ürün Adı"
+            value={product.name}
+            onChange={handleChange}
+            required
+          />
+          <input
+            className={styles.input}
+            type="text"
+            name="information"
+            placeholder="Bilgi"
+            value={product.information}
+            onChange={handleChange}
+            required
+          />
+          <input
+            className={styles.input}
+            type="text"
+            name="code"
+            placeholder="Ürün Kodu"
+            value={product.code}
+            onChange={handleChange}
+            required
+          />
+  
+          <select
+            className={styles.select}
+            name="categoryId"
+            value={product.categoryId}
+            onChange={handleCategoryChange}
+            required
+          >
+            <option value="">Kategori Seçin</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+  
+          <h3>Ürün Özellikleri</h3>
+          {attributes.map((attr, index) => (
+            <div className={styles.attributeContainer} key={index}>
+              <input
+                className={styles.attributeInput}
+                type="text"
+                placeholder="Özellik Adı"
+                value={attr.key}
+                onChange={(e) => handleAttributeChange(index, "key", e.target.value)}
+                required
+              />
+              <input
+                className={styles.attributeInput}
+                type="text"
+                placeholder="Özellik Değeri"
+                value={attr.value}
+                onChange={(e) => handleAttributeChange(index, "value", e.target.value)}
+                required
+              />
+              <button
+                className={styles.removeButton}
+                type="button"
+                onClick={() => removeAttributeField(index)}
+              >
+                Sil
+              </button>
+            </div>
           ))}
-        </select>
-
-        {/* 📌 1️⃣0️⃣ Ürün Özellikleri */}
-        <h3>Ürün Özellikleri</h3>
-        {attributes.map((attr, index) => (
-          <div className={styles.attributeContainer} key={index}>
-            <input
-              className={styles.attributeInput}
-              type="text"
-              placeholder="Özellik Adı"
-              value={attr.key}
-              onChange={(e) => handleAttributeChange(index, "key", e.target.value)}
-              required
-            />
-            <input
-              className={styles.attributeInput}
-              type="text"
-              placeholder="Özellik Değeri"
-              value={attr.value}
-              onChange={(e) => handleAttributeChange(index, "value", e.target.value)}
-              required
-            />
-            <button className={styles.removeButton} type="button" onClick={() => removeAttributeField(index)}>
-              Sil
-            </button>
-          </div>
-        ))}
-        <button className={styles.addButton} type="button" onClick={addAttributeField}>
-          + Özellik Ekle
-        </button>
-
-        {/* 📌 1️⃣1️⃣ Dosya Yükleme */}
-        <input className={styles.fileInput} type="file" multiple onChange={handleFileChange} />
-
-        <button className={styles.submitButton} type="submit">
-          Ürünü Yükle
-        </button>
-      </form>
+          <button
+            className={styles.addButton}
+            type="button"
+            onClick={addAttributeField}
+          >
+            + Özellik Ekle
+          </button>
+  
+          <input
+            className={styles.fileInput}
+            type="file"
+            multiple
+            onChange={handleFileChange}
+          />
+  
+          <button className={styles.submitButton} type="submit">
+            Ürünü Yükle
+          </button>
+        </form>
+      </div>
     </div>
   );
+  
 };
 
 export default ProductUploadPage;

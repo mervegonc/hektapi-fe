@@ -3,16 +3,15 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import Navbar from "./components/Navbar/Navbar";
 import AuthPage from "./pages/LoginPage/AuthPage";
 import HomePage from "./pages/HomePage/HomePage";
-import AxiosInstance from "./axios/AxiosInstance";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
-import ProductUploadPage from "./pages/ProductUploadPage/ProductUploadPage";
 import ProductPage from "./pages/ProductPage/ProductPage";
 import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage";
+import ContentManagement from "./components/Content/ContentManagement";
 
 function App() {
-  const [token, setToken] = useState(null);
-  const [role, setRole] = useState(null);
-  const [userId, setUserId] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [role, setRole] = useState(localStorage.getItem("role"));
+  const [userId, setUserId] = useState(localStorage.getItem("userId"));
 
   useEffect(() => {
     const handleLoginSuccess = () => {
@@ -29,8 +28,10 @@ function App() {
     return () => window.removeEventListener("loginSuccess", handleLoginSuccess);
   }, []);
 
+
   return (
     <Router>
+    
       <Navbar key={token + role + userId} token={token} role={role} userId={userId} />
 
       <Routes>
@@ -40,9 +41,11 @@ function App() {
         <Route path="/product" element={<ProductPage />} />
         <Route path="/product/:id" element={<ProductDetailPage />} />
         <Route
-          path="/productupload"
-          element={token && role === "ROLE_ADMIN" ? <ProductUploadPage /> : <Navigate to="/login" replace />}
-        />
+  path="/contentmanagment"
+  element={token && role === "ROLE_ADMIN" ? <ContentManagement /> : <Navigate to="/login" replace />}
+/>
+
+
       </Routes>
     </Router>
   );

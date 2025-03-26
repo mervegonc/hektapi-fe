@@ -1,11 +1,13 @@
-
+/* === GENEL NAVBAR STİLİ === */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 40px;
-  background-color: #083c11;
-  /*box-shadow: 0px 4px 6px rgba(35, 33, 33, 0);*/
+  background-color: #010f2c;
+  position: relative;
+  z-index: 999;
+  box-shadow: 0px 4px 10px rgba(255, 254, 186, 0.2); /* Beyaz gölge */
 }
 
 .logoContainer {
@@ -22,8 +24,7 @@
 .brandName {
   font-size: 22px;
   font-weight: bold;
-  color:  #ff6600  ;
-/*  color: #783702;*/
+  color: #f9f99f;
 }
 
 .navLinks {
@@ -34,13 +35,13 @@
 
 .navLinks li a {
   text-decoration: none;
-  color: #ff6600 ;
+  color: #f9f99f;
   font-size: 18px;
   transition: color 0.3s ease-in-out;
 }
 
 .navLinks li a:hover {
-  color: #fff200;
+  color: #edf900;
 }
 
 .rightMenu {
@@ -55,54 +56,153 @@
   border: 1px solid #ccc;
 }
 
-.loginButton {
-  background-color:  #ff6600 ;
+.profileIcon {
   color: white;
-  padding: 8px 15px;
-  border-radius: 20px;
-  text-decoration: none;
-  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
 }
 
-.loginButton:hover {
-  background-color:  #fff200;
-}
-
-/*search*/
-.searchBar {
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  width: 180px;
-  position: relative;
-  z-index: 2;
-}
-
+/* === SEARCH SONUÇLARI === */
 .searchResults {
   position: absolute;
-  top: 100%; /* input'un hemen altı */
-  left: 0;
-  width: 180px;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-top: 4px;
-  z-index: 10;
-  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
-  max-height: 200px;
+  background-color:  #010f2c;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-width: 160px;
+  max-height: 300px; /* Yüksekliği sınırladık */
   overflow-y: auto;
+  z-index: 1000; /* Yüksek z-index ile üstte kalmasını sağladık */
+  top: 88px; /* Navbar ile çakışmaması için biraz aşağı kaydırdık */
+  right: 10;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Arama sonuçları arasına boşluk ekledik */
 }
 
+/* Başlıkları vurgulamak için */
+.resultTitle {
+  font-weight: bold;
+  color: #ffffff;
+  font-size: 16px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 5px;
+}
+
+/* Sonuç itemleri */
 .resultItem {
   padding: 8px 12px;
   cursor: pointer;
-  border-bottom: 1px solid #eee;
+  background-color: #fafafa;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
 }
 
 .resultItem:hover {
-  background-color: #f2f2f2;
+  background-color: #f1f1f1; /* Hover efekti ile daha dikkat çekici */
+  transition: background-color 0.2s ease;
 }
 
-.rightMenu {
-  position: relative; /* Referans noktası için */
+/* === HAMBURGER ICON (MOBİL) === */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  color: white;
+  z-index: 2001; /* X işaretinin üstte kalması için z-index ekledim */
+}
+
+/* === MOBİL AÇILIR MENÜ === */
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 240px;
+  /*background: linear-gradient(to bottom, #f9f99f,  #010f2c);*/
+  background-color: #010f2c;
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding-left: 25px;
+  z-index: 2000; /* Menü arka planda kalacak */
+  box-shadow: 2px 0 10px rgba(247, 250, 198, 0.3);
+  animation: slideIn 0.3s ease forwards;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.mobileMenu a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.mobileMenu a:hover {
+  color: #ffcc00;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* === RESPONSIVE AYARLAR === */
+@media (max-width: 768px) {
+  .logoContainer {
+    display: none;
+  }
+
+  .navLinks {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .rightMenu {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .searchBar {
+    max-width: 120px;
+    font-size: 12px;
+  }
+
+  .profileIcon {
+    color: #f9f99f;
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .searchResults {
+    top: 63px; /* Arama sonuçlarını daha üstte göstermek için */
+    width: 100%; /* Tam genişlikte olmasını sağla */
+    max-width: 110px;
+    max-height: 250px; /* Mobilde biraz daha küçük sonuçlar */
+    right: 100;
+  }
+
+  .resultItem {
+    font-size: 14px; /* Mobilde daha küçük font boyutu */
+  }
+
+  .resultTitle {
+    font-size: 14px;
+  }
 }

@@ -1,86 +1,91 @@
-/* Genel sayfa stil ayarları */
+/* Sayfanın tamamı ortalanmış */
 .container {
-    background: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Başlık */
-.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    background-color: #f2f2f2;
+  }
+  
+  /* Kart (Card) görünümü */
+  .card {
+    width: 100%;
+    max-width: 800px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Başlık */
+  .title {
     text-align: center;
     color: #333;
     margin-bottom: 20px;
-}
-
-/* Form alanları */
-.form {
+  }
+  
+  /* Form alanları */
+  .form {
     display: flex;
     flex-direction: column;
     gap: 15px;
-}
-
-.input {
+  }
+  
+  .input,
+  .select {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
-}
-
-.fileInput {
+    width: 100%;
+  }
+  
+  .fileInput {
     padding: 10px;
     border: 1px dashed #ccc;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-}
-
-/* Özellik alanları */
-.attributeContainer {
+  }
+  
+  .attributeContainer {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    background: #fff;
+    background: #f9f9f9;
     padding: 15px;
     border-radius: 5px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-}
-
-.attributeRow {
-    display: flex;
-    gap: 10px;
-}
-
-.attributeInput {
-    flex: 1;
+  }
+  
+  .attributeInput {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-}
-
-.removeButton {
+  }
+  
+  .removeButton,
+  .addButton,
+  .submitButton {
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+  }
+  
+  .removeButton {
     background: #ff4d4d;
     color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.addButton {
+  }
+  
+  .addButton {
     background: #4caf50;
     color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.submitButton {
+  }
+  
+  .submitButton {
     background: #007bff;
     color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
     font-size: 18px;
-}
+  }
+  
