@@ -7,7 +7,7 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ProductPage from "./pages/ProductPage/ProductPage";
 import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage";
 import ContentManagement from "./components/Content/ContentManagement";
-
+import Footer from "./components/Footer/Footer";
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [role, setRole] = useState(localStorage.getItem("role"));
@@ -47,6 +47,7 @@ function App() {
 
 
       </Routes>
+      <Footer />
     </Router>
   );
 }

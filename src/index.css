@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
 }
 
 code {
@@ -12,7 +13,7 @@ code {
     monospace;
 }
 html, body {
- /* background-color: #010f2c; /* Sayfa genel arka plan rengi */
+  background-color: #010f2c;
  background-color: #ffffff;
   margin: 0;
   padding: 0;

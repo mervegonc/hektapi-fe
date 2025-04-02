@@ -1,5 +1,6 @@
+/* Email Card genel stilleri */
 .emailCard {
-  background-color: #f9f9f9;
+  background-color: #010f2c;
   margin-top: 15px;
   padding: 20px;
   border: 1px solid #ccc;
@@ -12,33 +13,68 @@
   to { opacity: 1; transform: scale(1); }
 }
 
-  
-  .emailCard h3 {
-    margin-bottom: 10px;
-    font-size: 16px;
+/* Başlık */
+.emailCard h3 {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+/* Input ve Textarea alanları */
+.emailCard input,
+.emailCard textarea {
+  background-color: #010f2c;
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  color: white;
+}
+
+/* Button stil */
+.emailCard button {
+  width: 100%;
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 5px;
+  border-radius: 4px;
+}
+
+.emailCard button:hover {
+  background-color: #218838;
+}
+
+/* Mobil düzenlemeler */
+@media (max-width: 768px) {
+  /* Email Card container'ı yatayda tam ortalamak */
+  .emailCard {
+    width: 100%;   /* Card'ın genişliğini %100 yap */
+    padding: 15px;  /* Daha dar padding */
+    box-sizing: border-box; /* Kenarlıklar ve padding'in genişliği etkilememesi için */
   }
-  
+
+  /* Form elemanlarını hizalamak */
   .emailCard input,
   .emailCard textarea {
     width: 100%;
-    padding: 8px;
-    margin: 5px 0;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+    padding: 10px;  /* Paddingi biraz artırdım */
+    box-sizing: border-box; /* Kenarlık ve padding'in genişliği etkilememesi için */
   }
-  
+
   .emailCard button {
-    width: 100%;
-    padding: 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-top: 5px;
-    border-radius: 4px;
+    width: 100%; /* Butonu tam genişlikte yap */
+    padding: 12px;  /* Buton paddingini biraz büyüttüm */
   }
-  
-  .emailCard button:hover {
-    background-color: #218838;
-  }
-  
+}
+/* Email Success Message */
+.successMessage {
+  background-color: #28a745;
+  color: white;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  text-align: center;
+}

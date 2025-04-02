@@ -1,17 +1,11 @@
 import React from "react";
-import styles from "./Footer.model.css";
+import "./Footer.model.css";
 
 const Footer = () => {
   return (
-    <footer className={styles.footer}>
-      <div className={styles.container}>
-        <p>&copy; {new Date().getFullYear()} Tüm Hakları Saklıdır.</p>
-        <div className={styles.links}>
-          <a href="/about">Hakkımızda</a>
-          <a href="/contact">İletişim</a>
-          <a href="/privacy">Gizlilik Politikası</a>
-        </div>
-      </div>
+    <footer className="footer">
+      <p>İletişim: 0534 611 12 71</p>
+      <p>Adres: İvedik OSB 1462. Cadde No:24 Yenimahalle / Ankara</p>
     </footer>
   );
 };

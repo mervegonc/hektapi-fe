@@ -19,12 +19,14 @@
   width: 50px;
   height: auto;
   margin-right: 10px;
+  filter: drop-shadow(2px 2px 6px rgba(252, 245, 163, 0.5));
 }
+
 
 .brandName {
   font-size: 22px;
   font-weight: bold;
-  color: #f9f99f;
+  color: #d4b728;
 }
 
 .navLinks {
@@ -35,7 +37,7 @@
 
 .navLinks li a {
   text-decoration: none;
-  color: #f9f99f;
+  color: #d4b728;
   font-size: 18px;
   transition: color 0.3s ease-in-out;
 }
@@ -60,6 +62,7 @@
   color: white;
   display: flex;
   align-items: center;
+  margin-right: -10px;
 }
 
 /* === SEARCH SONUÇLARI === */
@@ -111,19 +114,20 @@
   display: none;
   cursor: pointer;
   color: white;
-  z-index: 2001; /* X işaretinin üstte kalması için z-index ekledim */
+  z-index: 2001;
 }
 
 /* === MOBİL AÇILIR MENÜ === */
 .mobileMenu {
-  position: fixed;
+  padding:0px;
+  margin-top: -50px;
   top: 0;
   left: 0;
   height: 100vh;
   width: 240px;
-  /*background: linear-gradient(to bottom, #f9f99f,  #010f2c);*/
+  /*background: linear-gradient(to bottom, #d4b728,  #010f2c);*/
   background-color: #010f2c;
-  padding-top: 80px;
+
   display: flex;
   flex-direction: column;
   gap: 25px;
@@ -147,6 +151,42 @@
   color: #ffcc00;
 }
 
+
+.dropdown {
+  position: relative;
+}
+
+.dropdownContent {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #010f2c;
+  border: 1px solid #ccc;
+  padding: 10px 0;
+  border-radius: 6px;
+  z-index: 1001;
+  min-width: 180px;
+  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.3);
+  margin-top: 32px;
+}
+
+.dropdownContent li {
+  padding: 6px 16px;
+  text-align: left;
+}
+
+.dropdownContent li a {
+  color: white;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdownContent li a:hover {
+  background-color: #1a1a1a;
+  color: #ffcc00;
+}
+
+
 @keyframes slideIn {
   from {
     transform: translateX(-100%);
@@ -155,20 +195,43 @@
     transform: translateX(0);
   }
 }
-
-/* === RESPONSIVE AYARLAR === */
 @media (max-width: 768px) {
-  .logoContainer {
+  .brandName {
     display: none;
   }
+}
+/* === RESPONSIVE AYARLAR === */
+@media (max-width: 768px) {
+  .navbar {
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hamburger {
+    display: block;
+    margin-left: -20px; /* ← Burayı artırdık */
+    margin-right: 5px;
+  }
+  .logoContainer {
+    display: flex;
+    align-items: center;
+    margin-left: 0;
+  }
+
+  .logo {
+    width: 40px;
+    height: auto;
+    margin-right: 5px;
+  }
+
+
 
   .navLinks {
     display: none;
   }
 
-  .hamburger {
-    display: block;
-  }
+
 
   .rightMenu {
     margin-left: auto;
@@ -183,11 +246,13 @@
   }
 
   .profileIcon {
-    color: #f9f99f;
+    color: #d4b728;
     display: flex;
     align-items: center;
+    margin-right: -25px;
   }
 }
+
 
 @media (max-width: 768px) {
   .searchResults {
@@ -205,4 +270,97 @@
   .resultTitle {
     font-size: 14px;
   }
+}
+/*menü*/
+
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 240px;
+  background: #010f2c;
+  padding: 60px 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 2000;
+  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.4);
+  animation: slideIn 0.3s ease forwards;
+  overflow-y: auto;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* Tüm bağlantılar için ortak stil */
+.mobileMenu a {
+  font-size: 17px;
+  color: #f0f0f0;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-left: 3px solid transparent;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+/* Üzerine gelince efekti */
+.mobileMenu a:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffcc00;
+  font-size: 18px;
+  border-left: 3px solid #ffcc00;
+  padding-left: 16px;
+}
+
+/* Başlık: Kategoriler */
+.mobileCategoryTitle {
+  font-size: 15px;
+  color: #d4b728;
+  margin-top: 12px;
+  font-weight: bold;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 5px;
+  padding-left: 8px;
+}
+
+/* Kategori alt maddeleri */
+.mobileCategoryItem {
+  font-size: 15px;
+  color: #dcdcdc;
+  padding: 8px 16px;
+  border-left: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.mobileCategoryItem:hover {
+  color: #edf900;
+  background-color: rgba(255, 255, 255, 0.04);
+  border-left: 2px solid #edf900;
+  padding-left: 20px;
+}
+
+/* Animasyon */
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 70px;
+  right: 15px;
+  color: #ffffff;
+  cursor: pointer;
+  z-index: 2002;
+  transition: transform 0.2s ease;
+}
+
+.closeButton:hover {
+  transform: rotate(90deg);
+  color: #ffcc00;
 }

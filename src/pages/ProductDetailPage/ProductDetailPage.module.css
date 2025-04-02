@@ -5,6 +5,7 @@
   display: flex;
   gap: 20px;
   align-items: flex-start;
+
 }
 
 
@@ -148,6 +149,10 @@
   align-items: center;
   padding: 20px;
   width: 100%;
+  background-color: #010f2c;
+  color: white;
+  box-sizing: border-box;  /* Padding ve border'ın genişliğe dahil edilmesini sağlar */
+  max-width: 100%;  /* Max genişlik %100 olarak ayarlandı */
 }
 
 /* 🔥 Üst Bölüm: Sol (Resim) + Sağ (Ürün Bilgileri) */
@@ -198,7 +203,7 @@
 }
 
 .selectedImage {
-  border: 3px solid #ff0000 !important;
+  border: 3px solid #fde185 !important;
 }
 
 /* 🔄 Sağ ve Sol Oklar (Büyük Resmin Üzerinde) */
@@ -247,10 +252,87 @@
   max-width: 1200px;
   margin-top: 30px;
 }
+/* 📌 **Mobil Düzenlemeler (max-width: 768px)** */
+
+@media (max-width: 768px) {
+.productDetail{
+ width: 100%;
+}
+
+  
+  /* Üst Bölümdeki Resim ve Bilgiler Alt Alta Gelmeli */
+  .topSection {
+    flex-direction: column;  /* Mobilde dikey hizalama */
+    gap: 0px;
+    align-items: center;
+  }
+
+  /* Resmin boyutunu küçük ekranlara göre ayarlıyoruz */
+  .productImage {
+    height: 300px;  /* Resmin yüksekliğini düşür */
+    width: 100%; /* Resmi tam genişliğe yay */
+    object-fit: cover; /* Resmi düzgün şekilde kes */
+
+  }
+
+  /* Resim alanı ve içerik alanının hizalanmasını ayarlıyoruz */
+  .imageSection {
+    width: 100%;  /* Resmin tam genişlikte olmasını sağla */
+    text-align: center;  /* Resmin ve küçük önizlemelerin ortalanması */
+
+  }
+
+  /* Resim Önizleme Düzenini Küçült */
+  .imagePreviewContainer {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .previewImage {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border 0.2s ease-in-out;
+  }
+
+  .previewImage:hover {
+    border: 2px solid #007bff;
+  }
+
+  .selectedImage {
+    border: 3px solid #fde185 !important;
+  }
+
+  /* Ürün Bilgilerinin Yatayda Düzgün Sığması */
+  .infoSection {
+    width: 90%;  /* Bilgileri tam genişlikte yap */
+    text-align: center;  /* Bilgileri merkezle */
+  
+  }
+
+  .infoSection h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .infoSection p {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+
+  
+}
+/* Özellikler Tablosunun Düzenini Ayarla */
 .attributesTable {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  table-layout: fixed; /* Tabloyu sabit yaparak, sütunları eşit genişlikte tutar */
 }
 
 .attributesTable th,
@@ -266,18 +348,43 @@
 /* Özellik (Key) sütununun genişliğini ayarla */
 .attributesTable th:first-child,
 .attributesTable td:first-child {
-  width: 30%;  /* Özellik sütununun genişliğini ayarla */
+  width: 40%; /* Özellik sütununun genişliği */
   min-width: 150px; /* Minimum genişlik belirle */
-  max-width: 250px; /* Maksimum genişlik belirle */
+  max-width: 200px; /* Maksimum genişlik belirle */
 }
 
 /* Değer (Value) sütununun genişliğini ayarla */
 .attributesTable th:last-child,
 .attributesTable td:last-child {
-  width: 70%;
-  min-width: 250px;
-  max-width: 500px;
-  word-wrap: break-word;
-  white-space: normal;
-  overflow-wrap: break-word;
+  width: 60%; /* Değer sütununun genişliği */
+  min-width: 150px; /* Minimum genişlik belirle */
+  max-width: 200px; /* Maksimum genişlik belirle */
+}
+
+/* 📌 **Mobil Düzenlemeler (max-width: 768px)** */
+@media (max-width: 768px) {
+  .attributesTableWrapper {
+    width: 100%;
+    overflow-x: auto;  /* Yatay kaydırma ekle */
+  }
+
+  .attributesTable {
+    width: 100%;
+  }
+
+  .attributesTable th,
+  .attributesTable td {
+    font-size: 14px; /* Mobilde font boyutunu küçült */
+    padding: 6px;  /* Padding'i daralt */
+  }
+
+  .attributesTable th:first-child,
+  .attributesTable td:first-child {
+    width: 45%; /* Özellik sütununun genişliğini ayarla */
+  }
+
+  .attributesTable th:last-child,
+  .attributesTable td:last-child {
+    width: 55%; /* Değer sütununun genişliğini ayarla */
+  }
 }

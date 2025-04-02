@@ -141,10 +141,15 @@
 }
 
 /* === ÜRÜNLER SAYFASI STİLİ === */
+
 .productPage {
-  width: 100%;
-  background-color: #f5f5f5;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 100px); /* 100px navbar + footer yüksekliği varsayımı */
+  background-color: #010f2c;
 }
+
 
 .productContainer {
   width: 90%;
@@ -156,12 +161,9 @@
 
 .productList {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 sütun düzeni */
-  gap: 20px;
-  padding: 0;
-  list-style: none;
-  justify-items: center;
-  overflow-x: hidden;
+  grid-template-columns: repeat(5, minmax(0, 1fr)); /* 5 sütun, her birinin genişliği esnek */
+  gap: 30px;  /* Ürünler arasındaki boşluk */
+  padding: 5px;
 }
 
 .productItem:hover {
@@ -173,15 +175,16 @@
   width: 100%; /* Genişliği yüzde 100 yapıyoruz ki tüm alanı doldursun */
   max-width: 220px; /* Ürün kartının genişliğini sınırla */
   height: 280px; /* Kartın yüksekliği 280px */
-  background: #fff;
+color: #ddd;
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 10px;
   text-align: center;
   transition: transform 0.2s ease-in-out;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 6px rgba(255, 255, 255, 0.344);
   display: flex;
   flex-direction: column;
+  background-color: #010f2c;
 }
 
 /* Resim Alanı */
@@ -220,6 +223,32 @@
   text-overflow: ellipsis;
 }
 
+.filterContainer {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 20px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 15px 20px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Responsive filtre görünümü */
+@media (max-width: 768px) {
+  .filterContainer {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px;
+  }
+}
+
+
 /* ✅ Responsive Düzenlemeler */
 @media (max-width: 1200px) {
   .productList {
@@ -230,6 +259,7 @@
 @media (max-width: 900px) {
   .productList {
     grid-template-columns: repeat(2, 1fr); /* 900px altındaki ekranlar için 2 sütun */
+    margin-left: -5px;
   }
 
   .productItem {
@@ -249,10 +279,14 @@
 @media (max-width: 600px) {
   .productList {
     grid-template-columns: repeat(2, 1fr); /* 600px altındaki ekranlar için 2 sütun */
+
+    display: grid;
+    gap: 9px;  /* Ürünler arasındaki boşluk */
+    padding: 0px;
   }
 
   .productItem {
-    max-width: 160px; /* Ürün kartlarının genişliğini biraz daha küçült */
+    max-width: 150px; /* Ürün kartlarının genişliğini biraz daha küçült */
     height: 230px; /* Kartın yüksekliğini biraz daha küçült */
   }
 

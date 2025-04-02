@@ -1,26 +1,20 @@
 .footer {
-    background-color: #222;
-    color: white;
-    text-align: center;
-    padding: 15px 0;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-  }
+  background-color: #010f2c;
+  color: #d4b728;
+  text-align: center;
+  padding: 20px 10px;
+  font-size: 14px;
   
-  .container {
-    max-width: 1200px;
-    margin: auto;
+  border-top: 1px solid #ccc;
+}
+
+.footer p {
+  margin: 5px 0;
+}
+
+@media screen and (max-width: 600px) {
+  .footer {
+    font-size: 13px;
+    padding: 15px 5px;
   }
-  
-  .links a {
-    color: #f8f8f8;
-    margin: 0 10px;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .links a:hover {
-    text-decoration: underline;
-  }
-  
+}

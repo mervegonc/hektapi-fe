@@ -32,7 +32,7 @@
   }
   
   .ctaButton {
-    background-color: #f9f99f;
+    background-color: #d4b728;
     color:  #010f2c;
     padding: 10px 20px;
     border-radius: 20px;
@@ -44,7 +44,7 @@
   }
   
   .ctaButton:hover {
-    background-color: #f9f99f;
+    background-color: #d4b728;
   }
   @media (max-width: 768px) {
     .hero {

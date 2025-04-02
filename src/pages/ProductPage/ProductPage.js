@@ -1,63 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import AxiosInstance from "../../axios/AxiosInstance";
-import { SlidersHorizontal } from "lucide-react";
-import Filter from "../../components/Filter/Filter";
 import styles from "./ProductPage.module.css";
 
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const categoryIdFromUrl = searchParams.get("category");
+  const navigate = useNavigate();
 
-  const handleFilter = (categoryId) => {
-    if (!categoryId) {
-      setFilteredProducts(products);
-      setSelectedCategory("");
-      return;
-    }
+  const categoryFromQuery = searchParams.get("category");
 
-    setSelectedCategory(categoryId); // filtrede seçili göstermek için
-    AxiosInstance.get(`/products/category/${categoryId}`)
-      .then((res) => {
-        setFilteredProducts(res.data);
-      })
-      .catch((err) => {
-        console.error("Filtreleme hatası:", err);
-      });
-  };
   useEffect(() => {
-    const selectedCategoryId = localStorage.getItem("selectedCategoryId");
-  
     AxiosInstance.get("/products")
-      .then((response) => {
-        setProducts(response.data);
-  
-        if (selectedCategoryId) {
-          handleFilter(selectedCategoryId);
-          setSelectedCategory(selectedCategoryId);
-          localStorage.removeItem("selectedCategoryId");
+      .then((res) => {
+        setProducts(res.data);
+
+        if (categoryFromQuery) {
+          AxiosInstance.get(`/products/category/${categoryFromQuery}`)
+            .then((catRes) => setFilteredProducts(catRes.data))
+            .catch((err) => console.error("Kategori ürünleri çekilemedi:", err));
         } else {
-          setFilteredProducts(response.data);
+          setFilteredProducts(res.data);
         }
       })
-      .catch((error) => {
-        console.error("Ürünleri çekerken hata oluştu:", error);
-      });
-  }, []);
-  
-  
-  
+      .catch((err) => console.error("Ürünler çekilemedi:", err));
+  }, [categoryFromQuery]);
+
   return (
     <div className={styles.productPage}>
-      <div className={styles.filterContainer}>
-      
-        <Filter onFilter={handleFilter} defaultCategory={selectedCategory} />
-      </div>
-
       <div className={styles.productContainer}>
         <ul className={styles.productList}>
           {filteredProducts.map((product) => (
@@ -65,7 +36,6 @@ const ProductPage = () => {
               key={product.id}
               className={styles.productItem}
               onClick={() => navigate(`/product/${product.id}`)}
-              style={{ cursor: "pointer" }}
             >
               {product.firstImageUrl ? (
                 <img
@@ -74,20 +44,10 @@ const ProductPage = () => {
                   className={styles.productImage}
                 />
               ) : (
-                <div
-                  className={styles.productImage}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    backgroundColor: "#eee",
-                    height: "150px",
-                  }}
-                >
+                <div className={styles.productImage} style={{ backgroundColor: "#eee", height: "150px" }}>
                   <p style={{ color: "#666" }}>Resim Yok</p>
                 </div>
               )}
-
               <div className={styles.productInfo}>
                 <p className={styles.productName}>{product.name}</p>
                 <p className={styles.productCode}>Kod: {product.code}</p>
