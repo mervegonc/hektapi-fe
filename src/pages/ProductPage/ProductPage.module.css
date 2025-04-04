@@ -259,7 +259,7 @@ color: #ddd;
 @media (max-width: 900px) {
   .productList {
     grid-template-columns: repeat(2, 1fr); /* 900px altındaki ekranlar için 2 sütun */
-    margin-left: -5px;
+   
   }
 
   .productItem {

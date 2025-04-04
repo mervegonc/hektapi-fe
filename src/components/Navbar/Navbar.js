@@ -99,6 +99,7 @@ useEffect(() => {
         <li><Link to="/">Ana Sayfa</Link></li>
         <li><Link to="/product">Ürünler</Link></li>
 
+
         <li className={styles.dropdown} ref={categoryRef}>
   <Link
     to="#"
@@ -126,7 +127,7 @@ useEffect(() => {
     </ul>
   )}
 </li>
-
+<li><Link to="/offer">Hizmetlerimiz</Link></li>
 
 
 
@@ -216,7 +217,6 @@ useEffect(() => {
     )}
   </div>
 )}
-
 
 
     </nav>

@@ -8,6 +8,7 @@ import ProductPage from "./pages/ProductPage/ProductPage";
 import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage";
 import ContentManagement from "./components/Content/ContentManagement";
 import Footer from "./components/Footer/Footer";
+import WhatWeOffer from "./pages/Offers/WhatWeOffer";
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [role, setRole] = useState(localStorage.getItem("role"));
@@ -40,6 +41,7 @@ function App() {
         <Route path="/profile/:userId" element={<ProfilePage />} />
         <Route path="/product" element={<ProductPage />} />
         <Route path="/product/:id" element={<ProductDetailPage />} />
+        <Route path="/offer" element={<WhatWeOffer />} />
         <Route
   path="/contentmanagment"
   element={token && role === "ROLE_ADMIN" ? <ContentManagement /> : <Navigate to="/login" replace />}

@@ -118,38 +118,6 @@
 }
 
 /* === MOBİL AÇILIR MENÜ === */
-.mobileMenu {
-  padding:0px;
-  margin-top: -50px;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 240px;
-  /*background: linear-gradient(to bottom, #d4b728,  #010f2c);*/
-  background-color: #010f2c;
-
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  padding-left: 25px;
-  z-index: 2000; /* Menü arka planda kalacak */
-  box-shadow: 2px 0 10px rgba(247, 250, 198, 0.3);
-  animation: slideIn 0.3s ease forwards;
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
-}
-
-.mobileMenu a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: 500;
-  transition: color 0.2s ease;
-}
-
-.mobileMenu a:hover {
-  color: #ffcc00;
-}
 
 
 .dropdown {
@@ -273,47 +241,30 @@
 }
 /*menü*/
 
-.mobileMenu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 240px;
-  background: #010f2c;
-  padding: 60px 20px 20px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  z-index: 2000;
-  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.4);
-  animation: slideIn 0.3s ease forwards;
-  overflow-y: auto;
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
-}
+/* === MOBİL AÇILIR MENÜ === */
 
-/* Tüm bağlantılar için ortak stil */
+/* Menü öğelerinin üzerine gelince sarı renk ve efekt ekleme */
 .mobileMenu a {
   font-size: 17px;
   color: #f0f0f0;
   font-weight: 500;
   text-decoration: none;
   padding: 10px 12px;
-  border-left: 3px solid transparent;
+  border-left: 3px solid transparent; /* Başlangıçta sol kenarda şeffaf çizgi */
   border-radius: 4px;
   transition: all 0.3s ease;
 }
 
-/* Üzerine gelince efekti */
+/* Hover efekti ile sol kenarda sarı çizgi ve arka plan değişimi */
 .mobileMenu a:hover {
-  background-color: rgba(255, 255, 255, 0.05);
-  color: #ffcc00;
+  background-color: rgba(255, 255, 255, 0.05);  /* Arka planın hafif değişmesi */
+  color: #ffcc00;  /* Yazı renginin sarıya dönüşmesi */
   font-size: 18px;
-  border-left: 3px solid #ffcc00;
-  padding-left: 16px;
+  border-left: 3px solid #ffcc00;  /* Sol kenarda sarı çizgi */
+  padding-left: 16px;  /* Sol boşluğu artırarak daha belirgin hale getirme */
 }
 
-/* Başlık: Kategoriler */
+/* Kategori başlıkları için farklı stil */
 .mobileCategoryTitle {
   font-size: 15px;
   color: #d4b728;
@@ -324,20 +275,21 @@
   padding-left: 8px;
 }
 
-/* Kategori alt maddeleri */
+/* Kategori öğeleri */
 .mobileCategoryItem {
   font-size: 15px;
   color: #dcdcdc;
   padding: 8px 16px;
-  border-left: 2px solid transparent;
+  border-left: 2px solid transparent;  /* Başlangıçta sol kenarda şeffaf çizgi */
   transition: all 0.3s ease;
 }
 
+/* Kategori öğesinin üzerine gelindiğinde sarı renk ve efekt ekleme */
 .mobileCategoryItem:hover {
-  color: #edf900;
-  background-color: rgba(255, 255, 255, 0.04);
-  border-left: 2px solid #edf900;
-  padding-left: 20px;
+  color: #edf900;  /* Yazı rengi sarıya dönüşecek */
+  background-color: rgba(255, 255, 255, 0.04);  /* Arka plan hafif değişir */
+  border-left: 2px solid #edf900;  /* Sol kenarda sarı çizgi */
+  padding-left: 20px;  /* Sol boşluğu artırarak daha belirgin hale getirme */
 }
 
 /* Animasyon */
@@ -364,3 +316,66 @@
   transform: rotate(90deg);
   color: #ffcc00;
 }
+
+/* === MOBİL HAMBURGER MENÜ === */
+
+@media (max-width: 768px) {
+  .mobileMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 240px;
+    background: #010f2c;
+    padding: 60px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 2000;
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.4);
+    animation: slideIn 0.3s ease forwards;
+    overflow-y: auto;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+
+  /* Mobil menü öğelerinin üzerine gelince efekti ekleme */
+  .mobileMenu a {
+    font-size: 17px;
+    color: #f0f0f0;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 10px 12px;
+    border-left: 3px solid transparent;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+
+  /* Mobil menüde hover efekti */
+  .mobileMenu a:hover {
+    background-color: rgba(255, 255, 255, 0.05); /* Arka planın hafif değişmesi */
+    color: #ffcc00;  /* Yazı renginin sarıya dönüşmesi */
+    font-size: 18px;
+    border-left: 3px solid #ffcc00;  /* Sol kenarda sarı çizgi */
+    padding-left: 16px;  /* Sol boşluğu artırarak daha belirgin hale getirme */
+  }
+
+  .mobileCategoryTitle {
+    font-size: 15px;
+    color: #d4b728;
+    margin-top: 12px;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 5px;
+    padding-left: 8px;
+  }
+
+  /* Kategori öğelerinin hover efekti */
+  .mobileCategoryItem:hover {
+    color: #edf900;  /* Yazı rengi sarıya dönüşecek */
+    background-color: rgba(255, 255, 255, 0.04);  /* Arka plan hafif değişir */
+    border-left: 2px solid #edf900;  /* Sol kenarda sarı çizgi */
+    padding-left: 20px;  /* Sol boşluğu artırarak daha belirgin hale getirme */
+  }
+}
+
